@@ -1,0 +1,88 @@
+body {
+    background-color: #252422 !important;
+    color: #FFFCF2 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items:  center !important;
+}
+
+.input-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 60vw;
+    box-shadow: black 4px 4px 20px
+
+}
+.input-card__title-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #403D39;
+    width: inherit;
+}
+
+.input-card__categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: inherit;
+}
+
+.input-card__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+}
+
+.input-card__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    color: #403D39;
+    width: inherit;
+    background-color: #CCC5B9;
+}
+
+.input-card__add {
+    display: flex;
+    justify-content: flex-end;
+    width: inherit;
+    background-color: #403D39;
+    padding: 10px;
+}
+
+.btn-primary{
+    background-color: #EB5E28 !important;
+    border: none !important;
+}
+
+.input-card__input {
+    display: flex;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #403D39;
+    width: inherit;
+}
+
+input {
+    background-color: #CCC5B9;
+    border: none;
+    margin: 10px;
+    width: auto;
+}
+
+@media screen and (min-width: 1350px) {
+    .input-card__input{
+        grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+    }
+}
