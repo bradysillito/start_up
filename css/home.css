@@ -64,7 +64,7 @@ body {
 }
 
 .input-card__input {
-    display: flex;
+    display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 5px;
     justify-content: center;
