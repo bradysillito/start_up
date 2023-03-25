@@ -37,4 +37,4 @@ LEARNED IN SIMON:
 - That you can deploy things to the sub domains that way
 - Was great to practice different css techniques, things dont always seem to work the 
 way I think they will so practice is important
-
+- Node.js and Express will be super helpful when it comes to adding functionality. Study more about how to use. It is nice that we can run this locally as well. this will be helpfull to retrieve previous workouts for my website
