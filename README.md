@@ -38,3 +38,8 @@ LEARNED IN SIMON:
 - Was great to practice different css techniques, things dont always seem to work the 
 way I think they will so practice is important
 - Node.js and Express will be super helpful when it comes to adding functionality. Study more about how to use. It is nice that we can run this locally as well. this will be helpfull to retrieve previous workouts for my website
+- Important to make sure enviroment variables are set
+- const {MongoClient} = require('mongodb');
+  const client = new MongoClient(url);
+  const scoreCollection = client.db('simon').collection('score');
+  
