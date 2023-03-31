@@ -28,6 +28,8 @@ function createWorkout(){
     const sets = document.getElementById('sets').value;
     const weight = document.getElementById('weight').value;
 
+    clearInput();
+
     const newWorkout = document.querySelector('.input-card__content').cloneNode(true);
     const children =  newWorkout.children;
 
@@ -38,4 +40,11 @@ function createWorkout(){
 
     const workoutList = document.querySelector('.input-card__content-wrapper');
     workoutList.appendChild(newWorkout);
+}
+
+function clearInput(){
+    document.getElementById('workout').value = "";
+    document.getElementById('reps').value = "";
+    document.getElementById('sets').value = "";
+    document.getElementById('weight').value = "";
 }
