@@ -42,4 +42,5 @@ way I think they will so practice is important
 - const {MongoClient} = require('mongodb');
   const client = new MongoClient(url);
   const scoreCollection = client.db('simon').collection('score');
+- remember to reference the cookie authentification so user doesnt need to login every time the page reloads
   
