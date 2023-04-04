@@ -11,6 +11,7 @@
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <script src="/js/home.js"></script>
 </head>
 <body>
     <div class="input-card">
@@ -53,16 +54,16 @@
             </div>
         </div>
 
-        <div class="input-card__add">
-            <button type="button" class="btn btn-primary">Add Exercise</button>
+        <div class="input-card__add" id="add">
+            <button type="button" class="btn btn-primary" onclick="add()">Add Exercise</button>
         </div>
 
-        <div class="input-card__input">
-            <input type="text" placeholder="Workout">
-            <input type="text" placeholder="Reps">
-            <input type="text" placeholder="Sets">
-            <input type="text" placeholder="Weight">
-            <button type="button" class="btn btn-primary">Save</button>
+        <div class="input-card__input" id="input">
+            <input type="text" placeholder="Workout" id="workout">
+            <input type="text" placeholder="Reps" id="reps">
+            <input type="text" placeholder="Sets" id="sets">
+            <input type="text" placeholder="Weight" id="weight">
+            <button type="button" class="btn btn-primary" onclick="save()">Save</button>
         </div>
     </div>
 
