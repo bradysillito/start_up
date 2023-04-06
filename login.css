@@ -1,0 +1,193 @@
+body {
+  overflow: hidden;
+  margin: 0;
+  color: #fff;
+  background: radial-gradient(circle at 1%, #000000, #2d3436);
+}
+
+h1 {
+  font-family: "Paytone One", sans-serif;
+  font-size: 300px;
+  margin: 0;
+  line-height: 0.75;
+}
+
+h4 {
+  font-family: "Philosopher", sans-serif;
+  font-size: 40px;
+  line-height: 0;
+}
+
+button {
+  height: 36px;
+  width: 100px;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+}
+
+input {
+  height: 27px;
+  width: 200px;
+  margin: 0;
+  border: none;
+  padding: 4px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+.login-container {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 20px;
+  height: inherit;
+  overflow: hidden;
+}
+
+.big-title {
+  line-height: 1;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 92vh;
+}
+
+.hero-text {
+  margin: 10px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  grid-column-end: -1;
+  height: inherit;
+}
+
+.card {
+  height: 60vh;
+  width: 20vw;
+
+  align-self: flex-end;
+  border-radius: 10px;
+  border: #fff solid 1px;
+  margin: 10px;
+  filter: drop-shadow(16px 16px 20px black);
+  position: relative;
+  text-align: center;
+}
+
+.card-alt:hover {
+  border: #99f2c8 solid 2px;
+  transition: transform 0.075s ease-in-out;
+  filter: drop-shadow(16px 32px 20px black);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.card-text {
+  display: none;
+  font-family: sans-serif;
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  font-size: 3em;
+  line-height: 0;
+  opacity: 0.9;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 15%;
+  left: 60%;
+  transition: transform .75s ease-in-out;
+  z-index: 3;
+}
+
+.move-right {
+  transform: translateX(-60%);
+}
+
+.card-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.login-fields {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 500px;
+  align-self: flex-end;
+}
+
+.login-button {
+  background: radial-gradient(circle at 1%, #346b5d, #99f2c8);
+  border-radius: 0px 5px 5px 0px;
+  margin: 0;
+}
+
+.login-button:hover {
+  background: radial-gradient(circle at 1%, #99f2c8, #346b5d);
+  cursor: pointer;
+  box-shadow: #828282 10px 10px 40px;
+}
+
+.register-button {
+  background: none;
+  border: #fff solid 1px;
+  border-radius: 5px;
+}
+
+.register-button:hover {
+  cursor: pointer;
+  border: #99f2c8 solid 1px;
+}
+
+.input-and-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.welcome-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  line-height: 0.75;
+  opacity: 0;
+}
+
+.welcome-text {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.welcome-title {
+  font-family: "Paytone One", sans-serif;
+  font-size: 50px;
+  line-height: none;
+}
+
+
+@keyframes fade-in{
+  0% {
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}

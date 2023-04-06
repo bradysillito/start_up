@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>StartFit - login</title>
+
+    <link rel="stylesheet" href="login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Philosopher&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="login.js"></script>
+  </head>
+
+  <body>
+    <div class="card-container">
+      <div class="card">
+        <img
+          class="card-image"
+          src="./res/legs.jpg"
+          alt="Photo of a girl doing a backsquat"
+        />
+        <h2 class="card-text">Legs</h2>
+      </div>
+      <div class="card">
+        <img
+          class="card-image"
+          src="./res/chest.jpg"
+          alt="Photo of a rack for bench press"
+        />
+        <h2 class="card-text">Chest</h2>
+      </div>
+      <div class="card">
+        <img
+          class="card-image"
+          src="./res/back.jpg"
+          alt="Man doing a pull up"
+        />
+        <h2 class="card-text">Back</h2>
+      </div>
+      <div class="card">
+        <img class="card-image" src="./res/other.jpg" alt="Man Running" />
+        <h2 class="card-text">Other</h2>
+      </div>
+    </div>
+    <div class="welcome-container">
+      <h2 class="welcome-title" >welcome</h2>
+      <p class="welcome-text">
+        Please select which muscle group you would like to focus your workout on
+        today.
+      </p>
+    </div>
+
+    <div class="login-container">
+      <div class="title-container">
+        <h1 class="big-title">fit.</h1>
+        <p class="hero-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+      </div>
+
+      <div class="hero">
+        <div class="login-fields">
+          <div class="input-and-button">
+            <input type="text" placeholder="Username" class="login-input" onkeypress="key_press(event)"/>
+            <button class="login-button" onclick="login()">Login</button>
+          </div>
+          <button class="register-button">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
