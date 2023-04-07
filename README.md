@@ -44,6 +44,7 @@ way I think they will so practice is important
   const scoreCollection = client.db('simon').collection('score');
 - remember to reference the cookie authentification so user doesnt need to login every time the page reloads
 - Websocket is a little confusing refure too simon code
+- Reference: <a>https://github.com/webprogramming260/.github/blob/main/profile/webFrameworks/react/cli/cli.md</a> when starting react project. 
   
 
 Things to do:
