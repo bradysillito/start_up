@@ -21,12 +21,9 @@
   </head>
 
   <body>
-    <div class="background-replacement"></div>
-    <div class="body-background"></div>
-   
     <div class="menu-container">
-      <div class="menu-item">
-        <p class="fit-title">fit.</p>
+      <div class="menu-item title" onclick="resest()">
+        <p class="fit-title home">fit.</p>
       </div>
       <div class="menu-item">
         <p class="menu-text">all workouts</p>
@@ -37,8 +34,26 @@
     </div>
 
     <div class="today-container">
-      <div class="today-workout"></div>
-      <div class="prev-workout"></div>
+      <div class="today-workout">
+        <h2>today's workout</h2>
+        <div class="label-container">
+          <p>name</p>
+          <p>set</p>
+          <p>rep</p>
+          <p>lbs</p>
+        </div>
+        <div class="today-workout-info-container"></div>
+      </div>
+      <div class="prev-workout">
+        <h2>previous workout</h2>
+        <div class="label-container">
+          <p>name</p>
+          <p>set</p>
+          <p>rep</p>
+          <p>lbs</p>
+        </div>
+        <div class="prev-workout-info-container"></div>
+      </div>
     </div>
 
     <div class="card-container">
@@ -46,7 +61,7 @@
         class="card"
         onmouseenter="expand_contents(event)"
         onmouseleave="shrink_contents(event)"
-        onclick="transition_to_today()"
+        onclick="transition_to_today('leg')"
       >
         <img
           class="card-image"
@@ -59,6 +74,7 @@
         class="card"
         onmouseenter="expand_contents(event)"
         onmouseleave="shrink_contents(event)"
+        onclick="transition_to_today('chest')"
       >
         <img
           class="card-image"
@@ -71,6 +87,7 @@
         class="card"
         onmouseenter="expand_contents(event)"
         onmouseleave="shrink_contents(event)"
+        onclick="transition_to_today('back')"
       >
         <img
           class="card-image"
@@ -83,6 +100,7 @@
         class="card"
         onmouseenter="expand_contents(event)"
         onmouseleave="shrink_contents(event)"
+        onclick="transition_to_today('other')"
       >
         <img class="card-image" src="./res/other.jpg" alt="Man Running" />
         <h2 class="card-text">Other</h2>

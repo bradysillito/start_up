@@ -81,31 +81,22 @@ function shrink_contents(event) {
   card_image.style.animation = "shrink-image 0.35s backwards";
 }
 
-function transition_to_today() {
+function transition_to_today(selected_workout) {
   if (!logged_in) return;
-  console.log("transition");
-  change_background();
+
   fade_cards();
 
   setTimeout(() => {
     slide_menu();
-    slide_workouts();
+    slide_workouts(selected_workout);
   }, 1000);
-}
-
-function change_background() {
-  const body = document.querySelector(".body-background");
-  body.style.animation = "change-background-body 2s forwards";
-
-  const background = document.querySelector(".background-replacement");
-  background.style.animation = "change-background 2s forwards";
 }
 
 function fade_cards() {
   const card = document.querySelector(".card-container");
-  card.style.animation = "fade-out 1s forwards";
-
   const welcome = document.querySelector(".welcome-container");
+  
+  card.style.animation = "fade-out 1s forwards";
   welcome.style.animation = "fade-out 1s forwards";
 
   card.addEventListener("animationend", () => {
@@ -124,7 +115,13 @@ function slide_menu() {
   body.style.justifyContent = "center";
 }
 
-function slide_workouts() {
+function slide_workouts(selected_workout) {
+  const today_workout = document.querySelector(".today-workout > h2");
+  today_workout.innerHTML = "today's<br>" + selected_workout + "<br>workout";
+
+  const prev_workout = document.querySelector(".prev-workout > h2");
+  prev_workout.innerHTML = "previous<br>" + selected_workout + "<br>workouts";
+
   const today_container = document.querySelector(".today-container");
   today_container.style.display = "flex";
 
@@ -135,4 +132,7 @@ function slide_workouts() {
   const prev = document.querySelector(".prev-workout");
   prev.style.display = "flex";
   prev.style.animation = "slide-workout-bottom .75s forwards";
+}
+
+function reset() {
 }
