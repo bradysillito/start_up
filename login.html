@@ -21,8 +21,33 @@
   </head>
 
   <body>
+    <div class="background-replacement"></div>
+    <div class="body-background"></div>
+   
+    <div class="menu-container">
+      <div class="menu-item">
+        <p class="fit-title">fit.</p>
+      </div>
+      <div class="menu-item">
+        <p class="menu-text">all workouts</p>
+      </div>
+      <div class="menu-item">
+        <p class="menu-text">logout</p>
+      </div>
+    </div>
+
+    <div class="today-container">
+      <div class="today-workout"></div>
+      <div class="prev-workout"></div>
+    </div>
+
     <div class="card-container">
-      <div class="card">
+      <div
+        class="card"
+        onmouseenter="expand_contents(event)"
+        onmouseleave="shrink_contents(event)"
+        onclick="transition_to_today()"
+      >
         <img
           class="card-image"
           src="./res/legs.jpg"
@@ -30,7 +55,11 @@
         />
         <h2 class="card-text">Legs</h2>
       </div>
-      <div class="card">
+      <div
+        class="card"
+        onmouseenter="expand_contents(event)"
+        onmouseleave="shrink_contents(event)"
+      >
         <img
           class="card-image"
           src="./res/chest.jpg"
@@ -38,7 +67,11 @@
         />
         <h2 class="card-text">Chest</h2>
       </div>
-      <div class="card">
+      <div
+        class="card"
+        onmouseenter="expand_contents(event)"
+        onmouseleave="shrink_contents(event)"
+      >
         <img
           class="card-image"
           src="./res/back.jpg"
@@ -46,13 +79,17 @@
         />
         <h2 class="card-text">Back</h2>
       </div>
-      <div class="card">
+      <div
+        class="card"
+        onmouseenter="expand_contents(event)"
+        onmouseleave="shrink_contents(event)"
+      >
         <img class="card-image" src="./res/other.jpg" alt="Man Running" />
         <h2 class="card-text">Other</h2>
       </div>
     </div>
     <div class="welcome-container">
-      <h2 class="welcome-title" >welcome</h2>
+      <h2 class="welcome-title">welcome</h2>
       <p class="welcome-text">
         Please select which muscle group you would like to focus your workout on
         today.
@@ -73,7 +110,12 @@
       <div class="hero">
         <div class="login-fields">
           <div class="input-and-button">
-            <input type="text" placeholder="Username" class="login-input" onkeypress="key_press(event)"/>
+            <input
+              type="text"
+              placeholder="Username"
+              class="login-input"
+              onkeypress="key_press(event)"
+            />
             <button class="login-button" onclick="login()">Login</button>
           </div>
           <button class="register-button">Sign Up</button>

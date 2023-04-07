@@ -45,3 +45,9 @@ way I think they will so practice is important
 - remember to reference the cookie authentification so user doesnt need to login every time the page reloads
 - Websocket is a little confusing refure too simon code
   
+
+Things to do:
+- Figure out how to pass info to the next page(server or through url)
+- Able to edit the type of workout
+- finish workout button
+- see all workouts page (orginzed by date, clicking on it will show type body focus and list of exercises)
