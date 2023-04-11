@@ -134,5 +134,55 @@ function slide_workouts(selected_workout) {
   prev.style.animation = "slide-workout-bottom .75s forwards";
 }
 
-function reset() {
+function add_button_transition() {
+  const add_button = document.querySelector(".add-button");
+  add_button.style.animation = "scale-button-up .5s forwards";
+  
+  add_button.addEventListener("animationend", () => {
+    add_button.style.alignSelf = "center";
+    add_button.justifyContent = "space-around";
+    add_button.classList.remove("add-button-hover");
+
+    //insert input field into add button
+    const input_field = document.createElement("input");
+    input_field.classList.add("add-input");
+    input_field.placeholder = "workout name";
+    add_button.appendChild(input_field);
+
+    //insert input field into add button for sets
+    const input_field_sets = document.createElement("input");
+    input_field_sets.classList.add("add-input");
+    input_field_sets.placeholder = "sets";
+    input_field_sets.style.width = "50px";
+    add_button.appendChild(input_field_sets);
+
+    //insert input field into add button for reps
+    const input_field_reps = document.createElement("input");
+    input_field_reps.classList.add("add-input");
+    input_field_reps.placeholder = "reps";
+    input_field_reps.style.width = "50px";
+    add_button.appendChild(input_field_reps);
+
+    //insert input field into add button for weight
+    const input_field_weight = document.createElement("input");
+    input_field_weight.classList.add("add-input");
+    input_field_weight.placeholder = "weight";
+    input_field_weight.style.width = "50px";
+    add_button.appendChild(input_field_weight);
+    
+    //insert save button into add button
+    const save_button = document.createElement("button");
+    save_button.classList.add("save-button");
+    save_button.innerHTML = "save";
+    add_button.appendChild(save_button);
+  });
+
+  const button_text = document.querySelector(".add-button > p");
+  button_text.style.display = "none";
+
+
+
 }
+
+
+//TODO: add add button, fields for adding workout, and add to list
