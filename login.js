@@ -99,10 +99,10 @@ function fade_cards() {
   card.style.animation = "fade-out 1s forwards";
   welcome.style.animation = "fade-out 1s forwards";
 
-  card.addEventListener("animationend", () => {
+  setTimeout(() => {
     card.style.display = "none";
     welcome.style.display = "none";
-  });
+  }, 1000);
 }
 
 function slide_menu() {
@@ -229,7 +229,7 @@ function cancel() {
   button_text.innerText = "add";
 
   const input_container = document.querySelector("#user-input-container");
-  if(input_container) input_container.remove();
+  if (input_container) input_container.remove();
 }
 
 function save_workout() {
@@ -248,7 +248,7 @@ function save_workout() {
   if (set.innerText === "") set.innerText = "unknown";
   if (rep.innerText === "") rep.innerText = "unknown";
   if (lbs.innerText === "#") lbs.innerText = "unknown";
-  
+
   container.appendChild(name);
   container.appendChild(set);
   container.appendChild(rep);
@@ -261,8 +261,52 @@ function save_workout() {
 
   const parent = document.querySelector(".today-workout-info-container");
   parent.appendChild(container);
+  if (parent.offsetHeight > 400) {
+    parent.style.overflowY = "scroll";
+    parent.style.scrollbarGutter = "none";
+    parent.style.scrollbar = "none";
+    parent.style.scrollBehavior = "smooth";
+    parent.style.height = "400px";
+  }
 
   cancel();
 }
 
-//TODO: add add button, fields for adding workout, and add to list
+function return_to_choices() {
+  const card_container = document.querySelector(".card-container");
+  const welcome_container = document.querySelector(".welcome-container");
+
+  console.log(card_container);
+
+  //slide the workout container up
+  const today = document.querySelector(".today-workout");
+  const prev = document.querySelector(".prev-workout");
+
+  today.style.animation = "slide-workout-top-out 0.5s forwards ease-in-out";
+  prev.style.animation = "slide-workout-bottom-out 0.5s forwards ease-in-out";
+
+  setTimeout(() => {
+    today.style.display = "none";
+    prev.style.display = "none";
+  }, 500);
+
+  setTimeout(() => {
+    card_container.setAttribute("style", "display: flex;");
+    card_container.style.animation = "fade-in 0.75s forwards";
+    card_container.setAttribute("class", "card-container");
+    card_container.style.opacity = "0";
+    card_container.style.position = "absolute";
+    card_container.style.height = "fit-content";
+    card_container.style.bottom = "50%";
+    card_container.style.left = "50%";
+    card_container.style.transform = "translate(-50%, 50%)";
+  }, 500);
+}
+
+function view_all() {
+  console.log("view all");
+}
+
+function reload_page() {
+  location.reload();
+}
