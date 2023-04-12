@@ -95,7 +95,7 @@ function transition_to_today(selected_workout) {
 function fade_cards() {
   const card = document.querySelector(".card-container");
   const welcome = document.querySelector(".welcome-container");
-  
+
   card.style.animation = "fade-out 1s forwards";
   welcome.style.animation = "fade-out 1s forwards";
 
@@ -134,55 +134,135 @@ function slide_workouts(selected_workout) {
   prev.style.animation = "slide-workout-bottom .75s forwards";
 }
 
-function add_button_transition() {
-  const add_button = document.querySelector(".add-button");
-  add_button.style.animation = "scale-button-up .5s forwards";
-  
-  add_button.addEventListener("animationend", () => {
-    add_button.style.alignSelf = "center";
-    add_button.justifyContent = "space-around";
-    add_button.classList.remove("add-button-hover");
+function create_input_fields() {
+  console.log("create input fields");
+  //creat a container for the input fields
+  const input_container = document.createElement("div");
+  input_container.id = "user-input-container";
+  input_container.style.width = "100%";
+  input_container.style.display = "flex";
+  input_container.style.justifyContent = "space-between";
 
-    //insert input field into add button
-    const input_field = document.createElement("input");
-    input_field.classList.add("add-input");
-    input_field.placeholder = "workout name";
-    add_button.appendChild(input_field);
+  //insert input field into add button
+  const input_field = document.createElement("input");
+  input_field.id = "name";
+  input_field.classList.add("add-input");
+  input_field.placeholder = "workout name";
+  input_field.style.width = "40%";
+  input_field.style.borderRadius = "20px 5px 5px 20px";
+  input_container.appendChild(input_field);
 
-    //insert input field into add button for sets
-    const input_field_sets = document.createElement("input");
-    input_field_sets.classList.add("add-input");
-    input_field_sets.placeholder = "sets";
-    input_field_sets.style.width = "50px";
-    add_button.appendChild(input_field_sets);
+  //insert input field into add button for sets
+  const input_field_sets = document.createElement("input");
+  input_field_sets.id = "sets";
+  input_field_sets.classList.add("add-input");
+  input_field_sets.placeholder = "sets";
+  input_field_sets.style.width = "11%";
+  input_field_sets.style.borderRadius = "5px";
+  input_container.appendChild(input_field_sets);
 
-    //insert input field into add button for reps
-    const input_field_reps = document.createElement("input");
-    input_field_reps.classList.add("add-input");
-    input_field_reps.placeholder = "reps";
-    input_field_reps.style.width = "50px";
-    add_button.appendChild(input_field_reps);
+  //insert input field into add button for reps
+  const input_field_reps = document.createElement("input");
+  input_field_reps.id = "reps";
+  input_field_reps.classList.add("add-input");
+  input_field_reps.placeholder = "reps";
+  input_field_reps.style.width = "11%";
+  input_field_reps.style.borderRadius = "5px";
+  input_container.appendChild(input_field_reps);
 
-    //insert input field into add button for weight
-    const input_field_weight = document.createElement("input");
-    input_field_weight.classList.add("add-input");
-    input_field_weight.placeholder = "weight";
-    input_field_weight.style.width = "50px";
-    add_button.appendChild(input_field_weight);
-    
-    //insert save button into add button
-    const save_button = document.createElement("button");
-    save_button.classList.add("save-button");
-    save_button.innerHTML = "save";
-    add_button.appendChild(save_button);
+  //insert input field into add button for weight
+  const input_field_weight = document.createElement("input");
+  input_field_weight.id = "lbs";
+  input_field_weight.classList.add("add-input");
+  input_field_weight.placeholder = "lbs";
+  input_field_weight.style.width = "11%";
+  input_field_weight.style.borderRadius = "5px";
+  input_container.appendChild(input_field_weight);
+
+  //insert save button into add button
+  const save_button = document.createElement("button");
+  save_button.classList.add("save-button");
+  save_button.innerHTML = "save";
+  input_container.appendChild(save_button);
+
+  const parent = document.querySelector(".today-workout-info-container");
+  parent.appendChild(input_container);
+
+  const save_button_element = document.querySelector(".save-button");
+  save_button_element.addEventListener("click", () => {
+    save_workout();
   });
-
-  const button_text = document.querySelector(".add-button > p");
-  button_text.style.display = "none";
-
-
-
 }
 
+function add_workout() {
+  const add_button = document.querySelector(".add-button");
+  //add a new event listener to the add button for clicking
+  add_button.setAttribute("onclick", "revert_to_add_button()");
+
+  //remove classList from button
+  add_button.classList.remove("add-button");
+  add_button.classList.add("cancel-button");
+  add_button.classList.remove("add-button-hover");
+  add_button.classList.add("cancel-button-hover");
+
+  //change the text of the button
+  const button_text = document.querySelector(".cancel-button > p");
+  button_text.innerText = "cancel";
+
+  create_input_fields();
+}
+
+function cancel() {
+  const add_button = document.querySelector(".cancel-button");
+
+  //remove classList from button
+  add_button.classList.remove("cancel-button");
+  add_button.classList.add("add-button");
+
+  add_button.classList.remove("cancel-button-hover");
+  add_button.classList.add("add-button-hover");
+
+  //add a new event listener to the add button for clicking
+  add_button.setAttribute("onclick", "add_workout()");
+
+  const button_text = document.querySelector(".add-button > p");
+  button_text.innerText = "add";
+
+  const input_container = document.querySelector("#user-input-container");
+  if(input_container) input_container.remove();
+}
+
+function save_workout() {
+  const container = document.createElement("div");
+  const name = document.createElement("p");
+  const set = document.createElement("p");
+  const rep = document.createElement("p");
+  const lbs = document.createElement("p");
+
+  name.innerText = document.querySelector("#name").value;
+  set.innerText = document.querySelector("#sets").value;
+  rep.innerText = document.querySelector("#reps").value;
+  lbs.innerText = document.querySelector("#lbs").value + "#";
+
+  if (name.innerText === "") name.innerText = "unknown";
+  if (set.innerText === "") set.innerText = "unknown";
+  if (rep.innerText === "") rep.innerText = "unknown";
+  if (lbs.innerText === "#") lbs.innerText = "unknown";
+  
+  container.appendChild(name);
+  container.appendChild(set);
+  container.appendChild(rep);
+  container.appendChild(lbs);
+
+  container.classList.add("label-container");
+  container.style.fontWeight = "200";
+  container.style.color = "white";
+  container.style.width = "100%";
+
+  const parent = document.querySelector(".today-workout-info-container");
+  parent.appendChild(container);
+
+  cancel();
+}
 
 //TODO: add add button, fields for adding workout, and add to list
