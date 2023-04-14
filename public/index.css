@@ -5,11 +5,9 @@ body {
   overflow: hidden;
   margin: 0;
   background: radial-gradient(circle at 1%, #000000, #2d3436);
-  height: 100vh;  
-}
-
-p {
+  height: 100vh;
   font-family: sans-serif;
+  text-align: center;
 }
 
 .welcome-container {

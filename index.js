@@ -237,3 +237,7 @@ function todays_workout(selected_workout) {
 function save_workout(workout) {
   workouts.push(workout);
 }
+
+
+//TODO: make sure that workouts are saved to the correct user
+// hook up to database
