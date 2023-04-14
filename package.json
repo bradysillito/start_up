@@ -1,0 +1,15 @@
+{
+  "name": "start_up",
+  "version": "1.0.0",
+  "description": "Key Features - Allows the User to add new workouts - When a workout is selected they can see the past weight, sets,    and reps they completed - Gives a suggestion of how to improve by allowing you to select    a greater amount of weight, sets or reps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
