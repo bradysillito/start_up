@@ -15,27 +15,36 @@ app.listen(port, () => {
 
 /*========API routes=======*/
 
-// Test route
-apiRouter.get("/test", (req, res) => {
-  console.log("API test route");
-  res.send("API test route");
+// Login
+apiRouter.post("/login", (req, res) => {
+  console.log("login touched");
+  if (login(req.body) === true) {
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(401);
+  }
 });
 
 // Get Previous workout Data
 apiRouter.get("/workouts/:selected_workout", (req, res) => {
+  //TODO: make sure to get it based off the user
   res.send(prev_workouts(req.params.selected_workout));
 });
 
 // Get Todays workout
 apiRouter.get("/today-workouts/:selected_workout", (req, res) => {
-  console.log("Getting todays workout: " + req.params.selected_workout);
   res.send(todays_workout(req.params.selected_workout));
 });
 
 // Save workout
 apiRouter.post("/save-workout", (req, res) => {
-  console.log("Saving workout");
+  save_workout(req.body);
   res.sendStatus(200);
+});
+
+// load all workouts
+apiRouter.get("/all-workouts", (req, res) => {
+  res.send(workouts);
 });
 
 app.use((req, res, next) => {
@@ -45,6 +54,15 @@ app.use((req, res, next) => {
 
 /*========Helper Functions=======*/
 let workouts = [];
+let fakeUsers = [
+  { username: "test" },
+  { username: "user" },
+  { username: "coolguy" },
+  { username: "brady" },
+];
+
+
+let username;
 populate_workouts();
 function populate_workouts() {
   // Get previous workouts from database
@@ -172,9 +190,24 @@ function populate_workouts() {
     },
   ];
 
+  //sort workouts by date newest to oldest
+  temp.sort((a, b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  //reverse array so oldest is first
+  temp.reverse();
   temp.forEach((workout) => {
     workouts.push(workout);
   });
+}
+
+function login(req_body) {
+  username = req_body.username;
+  if (fakeUsers.find((user) => user.username === username)) {
+    return true;
+  }
+  return false;
 }
 
 function prev_workouts(selected_workout) {
@@ -190,11 +223,7 @@ function prev_workouts(selected_workout) {
 }
 
 function todays_workout(selected_workout) {
-
   let filtered_workouts = prev_workouts(selected_workout);
-
-  console.log("Getting todays workout");
-  //iterate through workouts and return all with todays date
   let todays_workouts = [];
   filtered_workouts.forEach((workout) => {
     if (workout.date === new Date().toDateString()) {
@@ -205,3 +234,6 @@ function todays_workout(selected_workout) {
   return todays_workouts;
 }
 
+function save_workout(workout) {
+  workouts.push(workout);
+}

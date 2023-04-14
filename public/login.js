@@ -1,23 +1,52 @@
 let logged_in = false;
 /*
 TODO:
--check adding todays worout to page
--add /:selected_workout to API calls,
--create MongoDB database
+- add  basic login functionality
+- create MongoDB database
 */
 
 function login() {
   let username = document.querySelector(".login-input").value;
-  if (username === "") {
-    username = "anonymous";
+
+  localStorage.setItem("username", username);
+  set_up();
+}
+
+function set_up() {
+  if (validate_user() === true) {
+    logged_in = true;
+    move_card_container();
+    add_hover_effect();
+    add_text_to_cards();
+    turn_off_hero();
+    turn_on_welcome(localStorage.getItem("username"));
+  }
+}
+
+async function validate_user() {
+  let username = localStorage.getItem("username");
+  console.log(username);
+  if (username === "" || username === "null" || username === null) {
+    return false;
   }
 
-  logged_in = true;
-  move_card_container();
-  add_hover_effect();
-  add_text_to_cards();
-  turn_off_hero();
-  turn_on_welcome(username);
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username }),
+    });
+    console.log(response.status);
+    if (response.status === 200) {
+      return true;
+    }
+  } catch {
+    console.log("error");
+    return false;
+  }
+  return false;
 }
 
 function add_hover_effect() {
@@ -150,6 +179,13 @@ function slide_workouts(selected_workout) {
 
 async function pop_prev_workouts(selected_workout) {
   let workouts = [];
+
+  //clear the previous workout container
+  const prev_cont = document.querySelector(".prev-workout-info-container");
+  while (prev_cont.firstChild) {
+    prev_cont.removeChild(prev_cont.firstChild);
+  }
+
   try {
     const response = await fetch("/api/workouts/" + selected_workout);
     workouts = await response.json();
@@ -164,6 +200,13 @@ async function pop_prev_workouts(selected_workout) {
 
 async function pop_today_workouts(selected_workout) {
   let workouts = [];
+
+  //clear the today workout container
+  const today_cont = document.querySelector(".today-workout-info-container");
+  while (today_cont.firstChild) {
+    today_cont.removeChild(today_cont.firstChild);
+  }
+
   try {
     const response = await fetch("/api/today-workouts/" + selected_workout);
     workouts = await response.json();
@@ -279,15 +322,13 @@ function create_input_fields() {
   parent.appendChild(input_container);
 
   const save_button_element = document.querySelector(".save-button");
-  save_button_element.addEventListener("click", () => {
-    save_workout();
-  });
+  save_button_element.setAttribute("onclick", "save_workout()");
 }
 
 function add_workout() {
   const add_button = document.querySelector(".add-button");
   //add a new event listener to the add button for clicking
-  add_button.setAttribute("onclick", "revert_to_add_button()");
+  add_button.setAttribute("onclick", "cancel()");
 
   //remove classList from button
   add_button.classList.remove("add-button");
@@ -327,13 +368,8 @@ function save_workout() {
   const sets = document.querySelector("#sets").value;
   const reps = document.querySelector("#reps").value;
   const lbs = document.querySelector("#lbs").value;
-  
-  const container = workout_item(
-    name,
-    sets,
-    reps,
-    lbs
-  );
+
+  const container = workout_item(name, sets, reps, lbs);
 
   const parent = document.querySelector(".today-workout-info-container");
   parent.appendChild(container);
@@ -352,14 +388,14 @@ function save_workout() {
 }
 
 function save_workout_to_db(name, sets, reps, lbs) {
-  
   const workout = {
+    user: localStorage.getItem("user"),
     workout: localStorage.getItem("selected_workout"),
     date: new Date().toDateString(),
     name: name.toLowerCase(),
     sets: sets,
     reps: reps,
-    lbs: lbs,
+    weight: lbs,
   };
 
   try {
@@ -414,7 +450,8 @@ function view_all() {
 }
 
 function reload_page() {
-  console.log("Reloading page");
+  localStorage.removeItem("username");
+  localStorage.removeItem("selected_workout");
+  logged_in = false;
   location.reload();
 }
-

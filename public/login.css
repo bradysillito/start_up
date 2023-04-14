@@ -46,6 +46,12 @@ img {
   border-radius: 10px;
 }
 
+::-webkit-scrollbar {
+  width: 3px;
+  background: transparent;
+  height: 90%;
+}
+
 .login-container {
   margin: 0;
   display: grid;
@@ -289,6 +295,7 @@ img {
 
   background: #36e988;
   border-radius: 0px 0px 150px 150px;
+  padding: 5px;
   filter: drop-shadow(16px 16px 20px black);
 }
 
@@ -318,16 +325,26 @@ img {
   justify-self: flex-start;
 
   width: 95%;
+  height: auto;
   min-height: 50px;
+  padding: 5px;
 }
 
 .prev-workout-info-container {
-  width: 95%;
-  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   background: #1b1c1d;
+  border-radius: 30px;
+  
   align-self: center;
   justify-self: center;
-  border-radius: 30px;
+  
+  width: 95%;
+  height: auto;
+  min-height: 50px;
+  padding: 5px;
 }
 
 .label-container {
@@ -348,7 +365,7 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
-  
+
   width: 90%;
   margin: 0;
   text-align: center;
