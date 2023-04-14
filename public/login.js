@@ -9,25 +9,14 @@ function login() {
   let username = document.querySelector(".login-input").value;
 
   localStorage.setItem("username", username);
-  set_up();
-}
-
-function set_up() {
-  if (validate_user() === true) {
-    logged_in = true;
-    move_card_container();
-    add_hover_effect();
-    add_text_to_cards();
-    turn_off_hero();
-    turn_on_welcome(localStorage.getItem("username"));
-  }
+  validate_user();
 }
 
 async function validate_user() {
   let username = localStorage.getItem("username");
   console.log(username);
   if (username === "" || username === "null" || username === null) {
-    return false;
+    return;
   }
 
   try {
@@ -40,13 +29,16 @@ async function validate_user() {
     });
     console.log(response.status);
     if (response.status === 200) {
-      return true;
+      logged_in = true;
+      move_card_container();
+      add_hover_effect();
+      add_text_to_cards();
+      turn_off_hero();
+      turn_on_welcome(localStorage.getItem("username"));
     }
   } catch {
     console.log("error");
-    return false;
   }
-  return false;
 }
 
 function add_hover_effect() {

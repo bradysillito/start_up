@@ -4,10 +4,12 @@ function reload_page() {
 }
 
 function view_all() {
-  console.log("view all");
+  //reload page
+  window.location.href = "all.html";
 }
 
 function return_to_choices() {
+  window.location.href = "login.html";
   console.log("return to choices");
 }
 
