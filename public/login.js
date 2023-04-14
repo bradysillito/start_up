@@ -1,4 +1,10 @@
 let logged_in = false;
+/*
+TODO:
+-check adding todays worout to page
+-add /:selected_workout to API calls,
+-create MongoDB database
+*/
 
 function login() {
   let username = document.querySelector(".login-input").value;
@@ -83,6 +89,7 @@ function shrink_contents(event) {
 
 function transition_to_today(selected_workout) {
   if (!logged_in) return;
+  localStorage.setItem("selected_workout", selected_workout);
 
   fade_cards();
 
@@ -129,6 +136,7 @@ function slide_workouts(selected_workout) {
 
   //populate the previos workout container with the previous workouts
   pop_prev_workouts(selected_workout);
+  pop_today_workouts(selected_workout);
 
   //Display the workout containers
   today_container.style.display = "flex";
@@ -143,18 +151,31 @@ function slide_workouts(selected_workout) {
 async function pop_prev_workouts(selected_workout) {
   let workouts = [];
   try {
-    const response = await fetch("/api/workouts");
+    const response = await fetch("/api/workouts/" + selected_workout);
     workouts = await response.json();
 
     workouts.forEach((workout) => {
-      create_and_insert_workout(workout);
+      insert_workout(workout, ".prev-workout-info-container");
     });
   } catch {
     console.log("error");
   }
 }
 
-function create_and_insert_workout(workout) {
+async function pop_today_workouts(selected_workout) {
+  let workouts = [];
+  try {
+    const response = await fetch("/api/today-workouts/" + selected_workout);
+    workouts = await response.json();
+    workouts.forEach((workout) => {
+      insert_workout(workout, ".today-workout-info-container");
+    });
+  } catch {
+    console.log("error");
+  }
+}
+
+function insert_workout(workout, parent_name) {
   const container = workout_item(
     workout.name,
     workout.sets,
@@ -162,7 +183,7 @@ function create_and_insert_workout(workout) {
     workout.weight
   );
 
-  const parent = document.querySelector(".prev-workout-info-container");
+  const parent = document.querySelector(parent_name);
   parent.appendChild(container);
   if (parent.offsetHeight > 400) {
     parent.style.overflowY = "scroll";
@@ -302,11 +323,16 @@ function cancel() {
 }
 
 function save_workout() {
+  const name = document.querySelector("#name").value;
+  const sets = document.querySelector("#sets").value;
+  const reps = document.querySelector("#reps").value;
+  const lbs = document.querySelector("#lbs").value;
+  
   const container = workout_item(
-    document.querySelector("#name").value,
-    document.querySelector("#sets").value,
-    document.querySelector("#reps").value,
-    document.querySelector("#lbs").value
+    name,
+    sets,
+    reps,
+    lbs
   );
 
   const parent = document.querySelector(".today-workout-info-container");
@@ -319,7 +345,36 @@ function save_workout() {
     parent.style.height = "400px";
   }
 
+  //save the workout to the database
+  save_workout_to_db(name, sets, reps, lbs);
+
   cancel();
+}
+
+function save_workout_to_db(name, sets, reps, lbs) {
+  
+  const workout = {
+    workout: localStorage.getItem("selected_workout"),
+    date: new Date().toDateString(),
+    name: name.toLowerCase(),
+    sets: sets,
+    reps: reps,
+    lbs: lbs,
+  };
+
+  try {
+    const response = fetch("api/save-workout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workout),
+    });
+
+    if (response.status !== 200) throw new Error("error");
+  } catch {
+    console.log("error");
+  }
 }
 
 function return_to_choices() {
@@ -360,21 +415,6 @@ function view_all() {
 
 function reload_page() {
   console.log("Reloading page");
-  testAPI();
   location.reload();
 }
 
-async function testAPI() {
-  try {
-    console.log("Testing the API");
-    const response = await fetch("/api/test", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-
-    const data = await response.json();
-    console.log(data);
-  } catch {
-    console.log("There was an error when testing the API");
-  }
-}
