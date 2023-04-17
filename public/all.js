@@ -1,5 +1,7 @@
 function reload_page() {
   //redirect to home page
+  localStorage.removeItem("username");
+  localStorage.removeItem("selected_workout");
   window.location.href = "login.html";
 }
 
@@ -17,12 +19,20 @@ async function load_workouts() {
   console.log("load workouts");
   let workouts = [];
   try {
-    const response = await fetch("/api/all-workouts");
+    const response = await fetch("/api/all-workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: localStorage.getItem("username"),
+      }),
+    });
     workouts = await response.json();
     workouts.forEach((workout) => {
       insert_workouts(workout);
     });
-  } catch (error) {
+  } catch {
     console.log(error);
   }
 }

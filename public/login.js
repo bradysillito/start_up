@@ -7,14 +7,12 @@ TODO:
 
 function login() {
   let username = document.querySelector(".login-input").value;
-
   localStorage.setItem("username", username);
   validate_user();
 }
 
 async function validate_user() {
   let username = localStorage.getItem("username");
-  console.log(username);
   if (username === "" || username === "null" || username === null) {
     return;
   }
@@ -27,18 +25,27 @@ async function validate_user() {
       },
       body: JSON.stringify({ username: username }),
     });
-    console.log(response.status);
+
     if (response.status === 200) {
       logged_in = true;
-      move_card_container();
-      add_hover_effect();
-      add_text_to_cards();
-      turn_off_hero();
-      turn_on_welcome(localStorage.getItem("username"));
+      change_screen();
     }
   } catch {
     console.log("error");
   }
+}
+
+function change_screen() {
+  move_card_container();
+  add_hover_effect();
+  add_text_to_cards();
+  turn_off_hero();
+  turn_on_welcome(localStorage.getItem("username"));
+}
+
+function move_card_container() {
+  const card_container = document.querySelector(".card-container");
+  card_container.classList.add("move-right");
 }
 
 function add_hover_effect() {
@@ -46,11 +53,6 @@ function add_hover_effect() {
   cards.forEach((card) => {
     card.classList.add("card-alt");
   });
-}
-
-function move_card_container() {
-  const card_container = document.querySelector(".card-container");
-  card_container.classList.add("move-right");
 }
 
 function add_text_to_cards() {
@@ -63,20 +65,19 @@ function add_text_to_cards() {
 
 function turn_off_hero() {
   const cont = document.querySelector(".title-container");
-  cont.style.display = "none";
-
   const hero = document.querySelector(".hero");
-  hero.style.display = "none";
-
   const login = document.querySelector(".login-container");
+
+  cont.style.display = "none";
+  hero.style.display = "none";
   login.style.display = "none";
 }
 
 function turn_on_welcome(username) {
   const title = document.querySelector(".welcome-title");
-  title.innerHTML = "welcome, " + username;
-
   const welcome = document.querySelector(".welcome-container");
+
+  title.innerHTML = "welcome, " + username;
   welcome.style.display = "flex";
   welcome.style.animation = "fade-in 2s forwards";
 }
@@ -89,22 +90,23 @@ function key_press(event) {
 
 function expand_contents(event) {
   if (!logged_in) return;
-  console.log("expand");
+
   const text = event.currentTarget.querySelector(".card-text");
+  const card_image = event.currentTarget.querySelector(".card-image");
+
   text.style.animation = "expand-text .3s forwards";
   text.style.textShadow = "black 2px 5px 5px";
-
-  const card_image = event.currentTarget.querySelector(".card-image");
   card_image.style.animation = "expand-image 20s forwards";
 }
 
 function shrink_contents(event) {
   if (!logged_in) return;
-  console.log("shrink");
+
   const text = event.currentTarget.querySelector(".card-text");
+  const card_image = event.currentTarget.querySelector(".card-image");
+
   text.style.animation = "shrink-text 0.35s backwards";
   text.style.textShadow = "none";
-  const card_image = event.currentTarget.querySelector(".card-image");
   card_image.style.animation = "shrink-image 0.35s backwards";
 }
 
@@ -135,10 +137,10 @@ function fade_cards() {
 
 function slide_menu() {
   const title = document.querySelector(".menu-container");
+  const body = document.querySelector("body");
+
   title.style.display = "flex";
   title.style.animation = "slide-menu .5s forwards";
-
-  const body = document.querySelector("body");
   body.style.display = "flex";
   body.style.justifyContent = "center";
 }
@@ -174,14 +176,20 @@ async function pop_prev_workouts(selected_workout) {
 
   //clear the previous workout container
   const prev_cont = document.querySelector(".prev-workout-info-container");
-  while (prev_cont.firstChild) {
-    prev_cont.removeChild(prev_cont.firstChild);
-  }
+  while (prev_cont.firstChild) prev_cont.removeChild(prev_cont.firstChild);
 
   try {
-    const response = await fetch("/api/workouts/" + selected_workout);
+    const response = await fetch("/api/prev-workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        selected_workout: selected_workout,
+        username: localStorage.getItem("username"),
+      }),
+    });
     workouts = await response.json();
-
     workouts.forEach((workout) => {
       insert_workout(workout, ".prev-workout-info-container");
     });
@@ -200,7 +208,16 @@ async function pop_today_workouts(selected_workout) {
   }
 
   try {
-    const response = await fetch("/api/today-workouts/" + selected_workout);
+    const response = await fetch("/api/today-workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        selected_workout: selected_workout,
+        username: localStorage.getItem("username"),
+      }),
+    });
     workouts = await response.json();
     workouts.forEach((workout) => {
       insert_workout(workout, ".today-workout-info-container");
@@ -381,9 +398,9 @@ function save_workout() {
 
 function save_workout_to_db(name, sets, reps, lbs) {
   const workout = {
-    user: localStorage.getItem("user"),
-    workout: localStorage.getItem("selected_workout"),
+    user: localStorage.getItem("username"),
     date: new Date().toDateString(),
+    workout: localStorage.getItem("selected_workout"),
     name: name.toLowerCase(),
     sets: sets,
     reps: reps,
@@ -407,11 +424,6 @@ function save_workout_to_db(name, sets, reps, lbs) {
 
 function return_to_choices() {
   const card_container = document.querySelector(".card-container");
-  const welcome_container = document.querySelector(".welcome-container");
-
-  console.log(card_container);
-
-  //slide the workout container up
   const today = document.querySelector(".today-workout");
   const prev = document.querySelector(".prev-workout");
 
@@ -437,7 +449,6 @@ function return_to_choices() {
 }
 
 function view_all() {
-  //redirect to the all workouts page
   window.location.href = "all.html";
 }
 
