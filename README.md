@@ -1,54 +1,19 @@
-# startup
-Key Features
-- Allows the User to add new workouts
-- When a workout is selected they can see the past weight, sets, 
-  and reps they completed
-- Gives a suggestion of how to improve by allowing you to select 
-  a greater amount of weight, sets or reps.
 
-Images
-![StartUp Sketch](https://github.com/bradysillito/startup/blob/main/StartUpDrawing.jpg)
+# StartFit
 
+Welcome to the StartFit repository! This project showcases my skills in front-end design and full-stack development, employing HTML, CSS, and Javascript. The live demo is accessible at [https://startup.startfit.click](https://startup.startfit.click), with the backend and APIs hosted on AWS. Stay tuned for upcoming releases, including a React version of the front end and a React Native application.
 
+## Purpose
 
-Elevator Pitch
-Introducing FitTrack, a website designed for all fitness enthusiasts out there. 
-This website allows you to easily keep track of your workouts, the weights and 
-sets associated with that workout, and monitor your progress over time. FitTrack 
-provides you a clear and user-friendly interface that makes it easy for you to 
-create, customize and manage your workout plans, and see the progress over time. 
-It's an essential tool for those who want to stay on top of their fitness goals 
-and see their progress.
+For novice weightlifters, the key to progress lies in understanding the concept of progressive overload. Simply put, each workout should surpass the previous one in terms of weight or reps. Fueled by my personal commitment to health, I meticulously tracked my workouts, reps, and weights in a physical notebook for over a year. However, referencing past workouts became challenging, prompting the development of this website.
 
+## Lessons Learned
 
-Public IP
-3.139.172.172
+This project served as a platform to solidify the concept and demonstrate proficiency in design and implementation. In a landscape rife with feature-laden distractions, I focused on creating a Minimum Viable Product (MVP) that is both simple and effective. Despite its simplicity, this project challenged me to thoroughly think through my solutions.
+
+## Next Steps
+
+The evolution of this application continues with the development of React and React Native versions. Planned features include a progress graph over time, the ability to view individual exercises side by side, and a comprehensive overview of the entire workout. Additionally, I aim to implement a smart suggestion feature based on your previous workouts, enhancing the user experience by recommending exercises based on preferences and history. Your fitness journey just got smarter and more streamlined!
 
 Web Address
 http://startfit.click
-
-EC2 Instance allows you to run your servers on amazons machines.
-
-ssh -i [key pair file] ubuntu@[ip address]
-key pair file location: Desktop/Winter\ 2023/CS260/production.pem
-
-LEARNED IN SIMON:
-- Was good to get more comfortable with HTML
-- That you can deploy things to the sub domains that way
-- Was great to practice different css techniques, things dont always seem to work the 
-way I think they will so practice is important
-- Node.js and Express will be super helpful when it comes to adding functionality. Study more about how to use. It is nice that we can run this locally as well. this will be helpfull to retrieve previous workouts for my website
-- Important to make sure enviroment variables are set
-- const {MongoClient} = require('mongodb');
-  const client = new MongoClient(url);
-  const scoreCollection = client.db('simon').collection('score');
-- remember to reference the cookie authentification so user doesnt need to login every time the page reloads
-- Websocket is a little confusing refure too simon code
-- Reference: <a>https://github.com/webprogramming260/.github/blob/main/profile/webFrameworks/react/cli/cli.md</a> when starting react project. 
-  
-
-Things to do:
-- Figure out how to pass info to the next page(server or through url)
-- Able to edit the type of workout
-- finish workout button
-- see all workouts page (orginzed by date, clicking on it will show type body focus and list of exercises)
